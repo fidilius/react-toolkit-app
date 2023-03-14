@@ -1,8 +1,15 @@
 import { CartIcon } from "../icons"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { useEffect } from "react"
+import { calculateTotals } from "../features/cart/cartSlice"
 
 const Navbar = () => {
-  const { amount } = useSelector((store) => store.cart)
+  const { amount, cartItems } = useSelector((store) => store.cart)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(calculateTotals())
+  }, [cartItems])
 
   return (
     <nav>
